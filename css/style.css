@@ -1,0 +1,11 @@
+body{font: 14px/1.4em Arial, Helvetica, sans-serif;color:#333}
+
+#bookie-container{
+	position: fixed;top: 0;bottom: 0;left:0;right:0;
+}
+#bookie-axis{
+	position: absolute;top:50%;left:50%;
+}
+
+#cosa1{background:red;height:200px;width:350px;}
+#cosa2{background:blue;height:100px;width:100px;}
