@@ -9,16 +9,17 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">	
 	<!-- CSS -->	
 	<link type="text/css" rel="stylesheet" href="css/reset.css">
+	<link type="text/css" rel="stylesheet" href="css/bookie.css">
 	<link type="text/css" rel="stylesheet" href="css/style.css">
 	<!--[if lt IE 9]>
 	<script type="text/javascript" src="js/libs/html5-3.4-respond-1.1.0.min.js"></script>
 	<![endif]-->
 </head>
 <body>
-<div id="bookie-container">
-	<div id="bookie-axis">
-		<div id="cosa1" class="bk" data-bookie="position:100,250,300;rotation:0,0,45;scale:1.2,0.5">Ej</div>
-		<div id="cosa2" class="bk" data-bookie="">Ej</div>
+<div class="bookie-container">
+	<div id="scene1">
+		<div id="cosa1" class="bk-layer" data-bk="x:100,y:250,z:300,yRotation:45">Ej</div>
+		<div id="cosa2" class="bk-layer" data-bk="yRotation:45">Ej</div>	
 	</div>
 </div>
 
@@ -31,8 +32,13 @@
 
 
 
+
 <script type="text/javascript" src="js/app/utils.js"></script>
+<script type="text/javascript" src="js/app/globals.js"></script>
+<script type="text/javascript" src="js/app/scene.js"></script>
+<script type="text/javascript" src="js/app/camera.js"></script>
 <script type="text/javascript" src="js/app/layer.js"></script>
-<script type="text/javascript" src="js/app/bookie.js"></script>
+<script type="text/javascript" src="js/app/bk.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>

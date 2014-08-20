@@ -1,7 +1,74 @@
 // Layer
-var	layer = function(obj){
-		return this.init(obj);
-	};
+var Layer = function(n){
+	return this.init(n); 
+};
+Layer.prototype = {
+	init : function(n){
+		this.x = 0;
+		this.y = 0;
+		this.z = 0;
+		this.xRotation = 0;
+		this.yRotation = 0;
+		this.zRotation = 0;
+		this.xScale = 1;
+		this.yScale = 1;
+
+		this.node = n;
+
+		setTimeout(function(){
+			css(n,{
+				'position' : 'absolute',
+				'top' : (-.5*n.offsetHeight)+'px',
+				'left' : (-.5*n.offsetWidth)+'px'
+			});
+		},100);
+
+		
+
+		css(this.node,{
+			'position' : 'absolute',
+			'top' : (-.5*this.height)+'px',
+			'left' : (-.5*this.width)+'px'
+		});
+
+
+		this.id = 'bk-layer-id-'+idCounterLayer;
+		idCounterLayer++;
+
+		var idNode = n.id;
+		if(typeof idNode != 'undefined' && idNode != ''){
+			this.id = idNode;
+		}else{
+			n.setAttribute('id',this.id);
+		}
+		var d = n.getAttribute('data-bk');
+
+		if(typeof d != 'undefined' && d != ''){
+			var o = parseData({
+				x : this.x,
+				y : this.y,
+				z : this.z,
+				xRotation : this.xRotation,
+				yRotation : this.yRotation,
+				zRotation : this.zRotation,
+				xScale : this.xScale,
+				yScale : this.yScale
+			},d);
+			var self = this;
+			self = extend(this,o);			
+		}
+		this.sceneParent = null;
+		this.setStyles();
+		return this;
+	},
+	setStyles : function(){
+		css(this.node,{
+			'transform' : trasformToString(this)
+		});
+		return this;
+	}
+};
+/*
 layer.prototype = {
 	init: function(obj){			
 		this.node = null;
@@ -30,3 +97,4 @@ layer.prototype = {
 		return this;
 	}
 };
+*/

@@ -8,30 +8,7 @@ var cfg = {
 	styleNode,
 	styleStr,
 	idCounter = 0,		
-	parseData = function(data){
-		var objData = {
-				position : {x : 0,y : 0,z : 0},
-				rotation : {x : 0,y : 0,z : 0},
-				scale : {x : 1,y : 1}
-			},
-			paramArrData,paramName,paramValues,
-			arrData = data.split(';');
-		for(var i=0;i<arrData.length;i++){
-			paramArrData = arrData[i].split(':');
-			paramName = paramArrData[0];
-			if(paramArrData[1]){paramValues = paramArrData[1].split(',');}
-			if(typeof objData[paramName] != 'undefined'){
-				objData[paramName].x = parseFloat(paramValues[0]);
-				if(paramValues[1]){objData[paramName].y = parseFloat(paramValues[1]);}
-				if(paramName == 'scale'){
-					if(paramValues[1]==undefined){objData[paramName].y = objData[paramName].x;}
-				}else{
-					if(paramValues[2]){objData[paramName].z = parseFloat(paramValues[2]);}
-				}
-			}
-		};
-		return objData;
-	},
+	
 	bookie = {
 		init : function(obj){
 			cfg = extend(cfg, obj || {});
