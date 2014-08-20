@@ -58,13 +58,23 @@ Layer.prototype = {
 			self = extend(this,o);			
 		}
 		this.sceneParent = null;
-		this.setStyles();
+		this.animating = false;
 		return this;
 	},
-	setStyles : function(){
-		css(this.node,{
-			'transform' : trasformToString(this)
-		});
+	move : function(trans){
+		move(this,trans);
+		return this;
+	},
+	animate : function(trans,duration,callback){
+		animate(this,trans,duration,callback);
+		return this;
+	},
+	render : function(){
+		transform(this.node,this,this.sceneParent.currentCamera);
+		return this;
+	},
+	on : function(eventType,eventHandler){
+		this.node.addEventListener(eventType, eventHandler,false);
 		return this;
 	}
 };

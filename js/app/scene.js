@@ -13,7 +13,8 @@ Scene.prototype = {
 		this.node = getNodes('#'+this.cfg.id)[0];
 		addClass(this.node,'bk-scene');
 		
-		this.layers = {};
+		this.layer = {};
+		this.rendered = false;
 
 		var nlayers = getNodes('.'+config.layerClass);
 		for(var i = 0;i<nlayers.length;i++){
@@ -33,13 +34,13 @@ Scene.prototype = {
 		for(var i = 0; i< this.cameras.length;i++){
 			if(this.cameras[i].id == camId){
 				this.currentCamera = this.cameras[i];
-				this.setSceneByCamera();
+				if(this.rendered){this.render()};
 			}
 		}
 		return this;
 	},
 	setSceneByCamera : function(){
-		var objTrasform = {
+		/*var objTrasform = {
 				x : -1*this.currentCamera.x,
 				y : -1*this.currentCamera.y,
 				z : -1*this.currentCamera.z,
@@ -52,20 +53,26 @@ Scene.prototype = {
 			
 		css(this.node,{
 			'perspective' : this.currentCamera.perspective + 'px',
+			'perspectiveOrigin' : this.currentCamera.x + 'px '+this.currentCamera.y +'px',
 			'transform' : trasformToString(objTrasform)
-		});
+		});*/
 		return this;
 	},
 	createLayer : function(n){
 		var newLayer = new Layer(n);
-		this.layers[newLayer.id] = newLayer;
+		this.layer[newLayer.id] = newLayer;
 		newLayer.sceneParent = this;
 		return this;
 	},
 	render : function(){
 		css(this.node,{
-			'display' : 'block'
+			'display' : 'block',
+			'perspective' : this.currentCamera.perspective + 'px'
 		});
+		for(var a in this.layer){
+			this.layer[a].render();
+		}
+		this.rendered = true;
 		return this;
 	}
 };

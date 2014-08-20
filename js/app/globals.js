@@ -4,4 +4,5 @@ var	scenes = [],
 	idCounterLayer = 1,
 	config = {
 		layerClass : 'bk-layer'
-	}
+	},
+	animationStepMS = 40;

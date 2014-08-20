@@ -26,6 +26,7 @@ Camera.prototype = {
 		this.setLens(this.lens);
 
 		this.sceneParent = null;
+		this.animating = false;
 		return this;
 	},
 	setLens : function(l){
@@ -37,5 +38,16 @@ Camera.prototype = {
 			this.perspective = 0;
 		}
 		return this;
+	},
+	move : function(trans){
+		move(this,trans);
+		return this;
+	},
+	animate : function(trans,duration,callback){
+		animate(this,trans,duration,callback);
+		return this;
+	},
+	render : function(){
+		this.sceneParent.render();
 	}
 };

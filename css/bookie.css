@@ -1,8 +1,24 @@
 /* BK */
 .bk-scene{
 	position: absolute;top:50%;left:50%;display: none;width:2px;height:2px;background-color: grey;
+	perspective-origin: 0px 0px;
 }
 
 .bk-layer{
 	position: absolute;top:0;left:0;
+}
+
+.bk-axis{position: absolute;top:0;left: -1500px;width:3000px;height:2px;}
+
+.bk-axis.x{background-color: red}
+
+.bk-axis.y{background-color: green;
+	-webkit-transform: rotateZ(90deg);
+	-moz-transform: rotateZ(90deg);
+	transform: rotateZ(90deg);
+}
+.bk-axis.z{background-color: blue;
+	-webkit-transform: rotateY(90deg) rotateZ(90deg);
+	-moz-transform: rotateY(90deg) rotateZ(90deg);
+	transform: rotateY(90deg) rotateZ(90deg);
 }

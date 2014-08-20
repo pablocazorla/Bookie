@@ -62,7 +62,7 @@ var aaa = function(str){
 		}
 		if(!get){
 			for(var a in objOrProp){
-				if((a =='transform' || a == 'perspective') && (prefix != '')){					
+				if((a =='transform' || a == 'perspective' || a == 'perspectiveOrigin') && (prefix != '')){					
 					element.style[prefix+capitalize(a)] = objOrProp[a];						
 				}else{
 					element.style[a] = objOrProp[a];
@@ -70,8 +70,11 @@ var aaa = function(str){
 			}
 		}		
 	},
-	trasformToString = function(o){
-		return 'translate3d('+o.x+'px,'+o.y+'px,'+o.z+'px) rotateX('+o.xRotation+'deg) rotateY('+o.yRotation+'deg) rotateZ('+o.zRotation+'deg) scale3d('+o.xScale+','+o.yScale+',1)';
+	transform = function(n,o,c){
+		var str = 'translate3d('+(o.x-c.x)+'px,'+(o.y-c.y)+'px,'+(o.z+c.z)+'px) rotateX('+o.xRotation+'deg) rotateY('+o.yRotation+'deg) rotateZ('+o.zRotation+'deg) scale3d('+o.xScale+','+o.yScale+',1)';
+		css(n,{
+			'transform' : str
+		});
 	},
 	parseData = function(objData,data){
 		var	arrData = data.split(','),u,a,b;
@@ -86,6 +89,45 @@ var aaa = function(str){
 			}
 		};
 		return objData;
+	},
+	clone = function(obj) {
+	    if (null == obj || "object" != typeof obj) return obj;
+	    var copy = obj.constructor();
+	    for (var attr in obj) {
+	        if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+	    }
+	    return copy;
+	},
+	move = function(o,trans){
+		o = extend(o,trans);
+		o.render();
+	},
+	animate = function(o,trans,duration,callback){
+		if(!o.animating){
+			o.animating = true;	
+			var steps = Math.round(duration/animationStepMS),
+				stepObj = {};
+			for(var a in trans){
+				stepObj[a] = (trans[a]-o[a])/steps;
+			}		
+			var st = 1,
+				timer = setInterval(function(){
+				for(var a in stepObj){
+					o[a] += stepObj[a];
+				}
+				st++;
+				if(st==steps){
+					clearInterval(timer);timer=null;
+					o = extend(o,trans);
+					o.render();
+					if(typeof callback == 'function'){
+						o.animating = false;
+						callback();
+					}
+				}else{o.render();}
+				
+			},animationStepMS);
+		}
 	}
 
 
